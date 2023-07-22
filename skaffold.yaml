@@ -1,0 +1,49 @@
+apiVersion: skaffold/v4beta6
+kind: Config
+manifests:
+  rawYaml:
+    - k8s/client-cluster-ip-service.yaml
+    - k8s/client-deployment.yaml
+    - k8s/database-persistent-volume-claim.yaml
+    - k8s/ingress-service.yaml
+    - k8s/postgres-cluster-ip-service.yaml
+    - k8s/postgres-deployment.yaml
+    - k8s/redis-cluster-ip-service.yaml
+    - k8s/redis-deployment.yaml
+    - k8s/server-cluster-ip-service.yaml
+    - k8s/server-deployment.yaml
+    - k8s/worker-deployment.yaml
+metadata:
+  name: complex-gh-wsl
+build:
+  local:
+    push: false
+  artifacts:
+    - image: fcabrera01/client-skaffold
+      context: client
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+          - src: "src/**/*.css"
+            dest: .
+          - src: "src/**/*.html"
+            dest: .
+    - image: fcabrera01/worker-skaffold
+      context: worker
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: "**/*.js"
+            dest: .
+    - image: fcabrera01/server-skaffold
+      context: server
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: "**/*.js"
+            dest: .
