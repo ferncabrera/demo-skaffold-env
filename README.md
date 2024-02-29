@@ -1,5 +1,5 @@
-# A Demo Skaffold Env!
-A basic development environment powered by Skaffold (for use as personal reference). Running a multi-service PERN application as the AUT.
+# A Simple (Testing container signing) Skaffold Env!
+A basic development environment powered by Skaffold (for use as a testing environment). Running a multi-service PERN application as the AUT.
 
 Development requirements :
 - Docker Desktop (Windows install) v24.0.2
